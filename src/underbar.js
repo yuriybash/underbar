@@ -52,7 +52,6 @@
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
-      console.log(collection);
       if(Array.isArray(collection)){
         for(var x = 0; x < collection.length; x++){
           iterator(collection[x], x, collection)
@@ -84,16 +83,48 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+      var result = [];
+      for(var x = 0; x < collection.length; x++){
+          if(test(collection[x])){
+            result.push(collection[x]);
+          }
+      }
+      return result;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
-    // copying code in and modifying it
+    // // copying code in and modifying it
+
+        var filtered = _.filter(collection, test);
+        //console.log(filtered);
+
+        return (_.filter(collection, function(a){
+          return _.indexOf(filtered, a) < 0
+        }));
+
+
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+      var obj1 = {};
+      var result = [];
+      console.log("input: " + array);
+
+      for(var x = 0; x < array.length; x++){
+          obj1[array[x]] = obj1[array[x]] + 1 || 1
+      }
+
+      for(var y in obj1){
+        result.push(parseInt(y));
+      }
+      
+      return result;
+
+      //console.log("output: " + result);
+
   };
 
 
