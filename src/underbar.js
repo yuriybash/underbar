@@ -184,13 +184,25 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-                  
+        
+        var temp = [];
+
+
           var missingAccumulator = false;
+          if(!Array.isArray(collection)){
+            
+              for(var prop in collection){
+                temp.push(collection[prop])
+              }
+              collection = temp;
+              
+
+          }
           
            if (accumulator == undefined) {
                accumulator = collection[0];
                missingAccumulator = true;
-           }
+             }
 
 
            if (!missingAccumulator) {
@@ -207,6 +219,7 @@
                }
            }
 
+           
            return accumulator;
 
 
@@ -215,10 +228,16 @@
 
   };
 
+  // console.log(_.reduce({a: 1, b:2, c:3}, function(a, b){
+  //   return a + b;
+  // }))
+  //debugger;
+
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
     // TIP: Many iteration problems can be most easily expressed in
     // terms of reduce(). Here's a freebie to demonstrate!
+    
     return _.reduce(collection, function(wasFound, item) {
       if (wasFound) {
         return true;
