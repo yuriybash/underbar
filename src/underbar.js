@@ -270,6 +270,22 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+
+    if(collection.length == 0) return false;
+
+    for(var y = 0; y < collection.length; y++){
+
+        if(iterator == undefined){
+            if(Boolean(collection[y])) return true;
+        }
+
+        else if(Boolean(iterator(collection[y]))) return true
+
+    }
+
+
+    return false;
+
   };
 
 
